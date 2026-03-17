@@ -4,26 +4,940 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>cogrow.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #000;
+      --white: #fff;
+      --gray-1: #999;
+      --gray-2: #555;
+      --gray-3: #222;
+      --border: rgba(255,255,255,0.1);
+      --border-hover: rgba(255,255,255,0.25);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #0a0a0a;
-      color: #ffffff;
-      min-height: 100vh;
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-transform: lowercase;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
-    .container { text-align: center; padding: 2rem; }
-    h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
-    p { font-size: 1.25rem; color: #888; max-width: 480px; margin: 0 auto; }
+
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray-1);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-cta {
+      color: var(--white) !important;
+      border: 1px solid var(--border);
+      padding: 7px 16px;
+      border-radius: 6px;
+      transition: border-color 0.15s ease, background 0.15s ease !important;
+    }
+
+    .nav-cta:hover {
+      border-color: var(--border-hover) !important;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--white);
+      transition: all 0.2s ease;
+    }
+
+    /* ─── SECTIONS ───────────────────────────────────────── */
+
+    section {
+      padding: 120px 48px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .full-width {
+      max-width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+
+    #hero {
+      padding-top: 180px;
+      padding-bottom: 140px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--gray-1);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 40px;
+    }
+
+    .hero-headline {
+      font-size: clamp(42px, 7vw, 84px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -2.5px;
+      color: var(--white);
+      max-width: 800px;
+      margin-bottom: 28px;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 400;
+      color: var(--gray-1);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 52px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--white);
+      color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-transform: lowercase;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-transform: lowercase;
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-note {
+      font-size: 13px;
+      color: var(--gray-2);
+      margin-top: 20px;
+    }
+
+    /* ─── DIVIDER ─────────────────────────────────────────── */
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 48px;
+    }
+
+    /* ─── PROBLEM ────────────────────────────────────────── */
+
+    #problem {
+      text-align: center;
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+
+    .problem-headline {
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -1.2px;
+      line-height: 1.2;
+      color: var(--white);
+      max-width: 640px;
+      margin: 0 auto 72px;
+    }
+
+    .problem-headline em {
+      font-style: normal;
+      color: var(--gray-1);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .stat-cell {
+      background: var(--bg);
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--gray-1);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* ─── SERVICES ───────────────────────────────────────── */
+
+    #services {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--gray-2);
+      margin-bottom: 16px;
+      text-transform: lowercase;
+    }
+
+    .section-headline {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 64px;
+      max-width: 520px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .service-card {
+      background: var(--bg);
+      padding: 40px 36px;
+      transition: background 0.2s ease;
+    }
+
+    .service-card:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .service-icon {
+      font-size: 22px;
+      margin-bottom: 20px;
+      filter: grayscale(1) brightness(2);
+    }
+
+    .service-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.4px;
+      margin-bottom: 10px;
+    }
+
+    .service-desc {
+      font-size: 14px;
+      color: var(--gray-1);
+      line-height: 1.65;
+    }
+
+    /* ─── HOW IT WORKS ───────────────────────────────────── */
+
+    #how-it-works {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 64px;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step-number {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-2);
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
+
+    .step-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--gray-1);
+      line-height: 1.65;
+    }
+
+    .step-connector {
+      position: absolute;
+      top: 9px;
+      right: -28px;
+      color: var(--gray-2);
+      font-size: 18px;
+    }
+
+    /* ─── CTA ────────────────────────────────────────────── */
+
+    #cta {
+      text-align: center;
+      padding-top: 120px;
+      padding-bottom: 140px;
+    }
+
+    .cta-headline {
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 800;
+      letter-spacing: -2.5px;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .cta-sub {
+      font-size: 17px;
+      color: var(--gray-1);
+      margin-bottom: 48px;
+      font-weight: 400;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray-2);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--gray-2);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    /* ─── NUMBERS DON'T LIE ─────────────────────────────── */
+
+    #numbers {
+      text-align: center;
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 860px;
+      margin: 48px auto 0;
+    }
+
+    .number-cell {
+      padding: 52px 36px;
+      text-align: center;
+      border-right: 1px solid var(--white);
+    }
+
+    .number-cell:last-child {
+      border-right: none;
+    }
+
+    .number-big {
+      font-size: clamp(40px, 5vw, 58px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .number-desc {
+      font-size: 14px;
+      color: var(--gray-1);
+      line-height: 1.6;
+    }
+
+    /* ─── PRICING ─────────────────────────────────────────── */
+
+    #pricing {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin: 48px 0 40px;
+    }
+
+    .pricing-card {
+      background: var(--bg);
+      border: 1px solid var(--white);
+      border-radius: 12px;
+      padding: 44px 40px;
+    }
+
+    .pricing-tier {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--gray-2);
+      margin-bottom: 12px;
+    }
+
+    .pricing-price {
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .pricing-period {
+      font-size: 14px;
+      color: var(--gray-2);
+      margin-bottom: 32px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pricing-features li {
+      font-size: 14px;
+      color: var(--gray-1);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .pricing-features li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gray-2);
+    }
+
+    .pricing-compare {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 40px;
+    }
+
+    .compare-cell {
+      background: var(--bg);
+      padding: 32px 28px;
+      text-align: center;
+    }
+
+    .compare-who {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-2);
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .compare-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .compare-label {
+      font-size: 13px;
+      color: var(--gray-1);
+    }
+
+    /* ─── HOW WE GET YOU THERE ───────────────────────────── */
+
+    #wedge {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+
+    /* ─── MOBILE ─────────────────────────────────────────── */
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 24px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: #0a0a0a;
+        border-bottom: 1px solid var(--border);
+        padding: 20px 24px;
+        gap: 20px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-hamburger {
+        display: flex;
+      }
+
+      section {
+        padding: 80px 24px;
+      }
+
+      #hero {
+        padding-top: 130px;
+        padding-bottom: 80px;
+      }
+
+      .divider {
+        margin: 0 24px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .step-connector {
+        display: none;
+      }
+
+      .numbers-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .number-cell {
+        border-right: none;
+        border-bottom: 1px solid var(--white);
+      }
+
+      .number-cell:last-child {
+        border-bottom: none;
+      }
+
+      .pricing-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-compare {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        padding: 28px 24px;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-headline {
+        letter-spacing: -1.5px;
+      }
+
+      .btn-primary, .btn-ghost {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>cogrow.ai</h1>
-    <p>Coming soon.</p>
-  </div>
+
+  <!-- ─── NAV ─────────────────────────────────────── -->
+  <nav>
+    <a href="#" class="nav-logo">cogrow.ai</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#services">services</a></li>
+      <li><a href="#how-it-works">how it works</a></li>
+      <li><a href="https://cal.com/cogrowai/freeaudit" class="nav-cta">contact</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" aria-label="menu" role="button" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-eyebrow">ai for professional services</div>
+    <h1 class="hero-headline">we already rebuilt your website.</h1>
+    <p class="hero-sub">see what your firm looks like with modern ai tools — before you commit to anything.</p>
+    <div class="hero-actions">
+      <a href="https://cal.com/cogrowai/freeaudit" class="btn-primary">see the demo →</a>
+      <a href="#how-it-works" class="btn-ghost">how it works</a>
+    </div>
+    <p class="hero-note">no contract. no credit card. just your demo.</p>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── PROBLEM ───────────────────────────────────── -->
+  <section id="problem">
+    <p class="problem-headline">
+      your competitors respond to leads in <em>4.2 seconds.</em><br />
+      you're taking <em>47 hours.</em>
+    </p>
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="stat-number">4.2s</div>
+        <div class="stat-label">average ai response time<br />to new inquiries</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">47h</div>
+        <div class="stat-label">average human response time<br />at traditional firms</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">78%</div>
+        <div class="stat-label">of leads go with the firm<br />that responds first</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── SERVICES ──────────────────────────────────── -->
+  <section id="services">
+    <p class="section-label">what we build</p>
+    <h2 class="section-headline">everything your firm needs to compete in 2026.</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <div class="service-title">speed-to-lead automation</div>
+        <p class="service-desc">respond to every inbound inquiry in seconds — not hours. ai qualifies the lead, books the call, and follows up automatically.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🖥</div>
+        <div class="service-title">website redesign</div>
+        <p class="service-desc">we build you a modern, conversion-optimized site. clean. fast. built to turn visitors into clients. and we show you the demo before you pay a cent.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💬</div>
+        <div class="service-title">ai chat widget</div>
+        <p class="service-desc">a smart chat assistant trained on your firm — answers questions, captures leads, and books appointments 24/7 while you sleep.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-title">client intake & reporting</div>
+        <p class="service-desc">automated onboarding flows, intake forms, and live dashboards so you always know where every client stands — without chasing anyone.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── HOW IT WORKS ──────────────────────────────── -->
+  <section id="how-it-works">
+    <p class="section-label">the process</p>
+    <h2 class="section-headline">simple. fast. no risk.</h2>
+    <div class="steps-container">
+      <div class="step">
+        <div class="step-number">01</div>
+        <div class="step-title">we audit your site</div>
+        <p class="step-desc">we analyze your current site, your competitors, and your intake flow. takes us about a day.</p>
+        <span class="step-connector">→</span>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <div class="step-title">we build your demo</div>
+        <p class="step-desc">we mock up your new site and ai tools — fully functional, personalized to your firm. free. no strings.</p>
+        <span class="step-connector">→</span>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <div class="step-title">you see the roi</div>
+        <p class="step-desc">we walk you through the demo and the projected results. you decide if you want to move forward. zero pressure.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── THE NUMBERS DON'T LIE ────────────────────── -->
+  <section id="numbers">
+    <p class="section-label">the numbers don't lie</p>
+    <h2 class="section-headline">speed wins. every time.</h2>
+    <div class="numbers-grid">
+      <div class="number-cell">
+        <div class="number-big">78%</div>
+        <div class="number-desc">of buyers hire whoever responds first</div>
+      </div>
+      <div class="number-cell">
+        <div class="number-big">$3,200+</div>
+        <div class="number-desc">lost per month in leads that go to competitors due to slow response</div>
+      </div>
+      <div class="number-cell">
+        <div class="number-big">4.2s</div>
+        <div class="number-desc">our clients' average response time<br />(industry average: 47 hours)</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── FREE AUDIT CTA ────────────────────────────── -->
+  <section id="audit" style="text-align: center;">
+    <h2 class="cta-headline">get a free audit.</h2>
+    <p class="cta-sub">we'll grade your response time, website health, and seo. no pitch. just data.</p>
+    <a href="https://cal.com/cogrowai/freeaudit" class="btn-primary">book a free audit →</a>
+    <p style="margin-top: 14px; font-size: 13px; color: var(--gray-1);">or email <a href="mailto:paul@cogrow.ai" style="color: var(--gray-1);">paul@cogrow.ai</a></p>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── HOW WE GET YOU THERE ──────────────────────── -->
+  <section id="wedge">
+    <p class="section-label">how we get you there</p>
+    <h2 class="section-headline">we build your demo before you spend a dime.</h2>
+    <p class="hero-sub" style="margin-bottom: 0;">most agencies ask you to trust them. we show you the results first.</p>
+    <div class="steps-container">
+      <div class="step">
+        <div class="step-number">01</div>
+        <div class="step-title">we audit your business</div>
+        <p class="step-desc">response time, website health, seo score. we grade you a through d.</p>
+        <span class="step-connector">→</span>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <div class="step-title">we build your demo</div>
+        <p class="step-desc">a real website with your business name, your branding, your services. you see exactly what you're getting.</p>
+        <span class="step-connector">→</span>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <div class="step-title">you decide</div>
+        <p class="step-desc">if you love it, we launch it. if not, you walk away with a free audit. no pressure, no contract.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── CTA ───────────────────────────────────────── -->
+  <section id="cta">
+    <h2 class="cta-headline">ready to see it?</h2>
+    <p class="cta-sub">we'll build your demo for free. no commitment required.</p>
+    <a href="https://cal.com/cogrowai/freeaudit" class="btn-primary">book a free audit →</a>
+    <p style="margin-top: 14px; font-size: 13px; color: var(--gray-1);">or email <a href="mailto:paul@cogrow.ai" style="color: var(--gray-1);">paul@cogrow.ai</a></p>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────── -->
+  <footer>
+    <div class="footer-logo">cogrow.ai</div>
+    <p class="footer-copy">© 2026 cogrow.ai</p>
+    <ul class="footer-links">
+      <li><a href="#services">services</a></li>
+      <li><a href="#how-it-works">how it works</a></li>
+      <li><a href="https://cal.com/cogrowai/freeaudit">contact</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    hamburger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') navLinks.classList.toggle('open');
+    });
+    // close nav on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  </script>
+
 </body>
 </html>
