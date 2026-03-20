@@ -206,6 +206,31 @@
       background: rgba(255,255,255,0.04);
     }
 
+    .btn-sm-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--gray-1);
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: lowercase;
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+      letter-spacing: -0.1px;
+    }
+
+    .btn-sm-ghost:hover {
+      border-color: var(--border-hover);
+      color: var(--white);
+      background: rgba(255,255,255,0.03);
+    }
+
     .hero-note {
       font-size: 13px;
       color: var(--gray-2);
@@ -665,6 +690,7 @@
       <div class="hero-actions">
         <a href="https://cal.com/cogrowai/freeaudit" class="btn-primary">see your demo →</a>
         <a href="https://cal.com/cogrowai/freeaudit" class="btn-ghost">book a call</a>
+        <a href="https://buy.stripe.com/cNi00bdtData5iV3Tz3F600" class="btn-sm-ghost">get started</a>
       </div>
     </div>
     <div class="hero-right">
@@ -858,7 +884,10 @@
   <section id="final-cta">
     <h2 class="section-headline">we built a demo for businesses just like yours.</h2>
     <p class="hero-sub">want to see what yours could look like?</p>
-    <a href="https://cal.com/cogrowai/freeaudit" class="btn-primary">get your free demo →</a>
+    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; align-items: center;">
+      <a href="https://cal.com/cogrowai/freeaudit" class="btn-primary">get your free demo →</a>
+      <a href="https://buy.stripe.com/cNi00bdtData5iV3Tz3F600" class="btn-sm-ghost">get started</a>
+    </div>
     <p style="margin-top: 20px; font-size: 13px; color: var(--gray-2);">or email <a href="mailto:paul@cogrow.ai" style="color: var(--gray-1); text-decoration: none;">paul@cogrow.ai</a></p>
   </section>
 
