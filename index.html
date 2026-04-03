@@ -419,6 +419,100 @@
       line-height: 1.6;
     }
 
+    .included-premium {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--gray-4);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-top: 8px;
+      transition: border-color 0.3s;
+    }
+
+    .included-premium:hover {
+      border-color: var(--border-hover);
+    }
+
+    .included-premium-left {
+      display: flex;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .included-premium .included-check {
+      font-size: 20px;
+      opacity: 1;
+    }
+
+    .included-premium .included-title {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .included-premium .included-desc {
+      font-size: 15px;
+      max-width: 540px;
+    }
+
+    .included-premium-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .included-premium-tag {
+      font-size: 12px;
+      color: var(--gray-1);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .included-premium-right {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .included-premium-price {
+      font-family: 'Sora', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1px;
+    }
+
+    .included-premium-note {
+      font-size: 13px;
+      color: var(--gray-1);
+      margin-top: 4px;
+    }
+
+    .included-premium-cta {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--white);
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-transform: lowercase;
+      letter-spacing: -0.2px;
+      transition: opacity 0.2s;
+    }
+
+    .included-premium-cta:hover {
+      opacity: 0.85;
+    }
+
     /* ─── STATS ──────────────────────────────── */
 
     #stats {
@@ -616,6 +710,8 @@
 
       .industries-grid { grid-template-columns: 1fr; }
       .included-grid { grid-template-columns: 1fr; }
+      .included-premium { flex-direction: column; align-items: flex-start; }
+      .included-premium-right { text-align: left; }
       .stats-comparison { grid-template-columns: 1fr; }
       .steps-container { grid-template-columns: 1fr; gap: 40px; }
       .proof-strip { gap: 16px; padding: 32px 24px; }
@@ -798,6 +894,28 @@
         <div>
           <div class="included-title">free audit first</div>
           <div class="included-desc">we analyze your current process and show you exactly what changes win leads.</div>
+        </div>
+      </div>
+      <div class="included-premium">
+        <div class="included-premium-left">
+          <div class="included-check">&#9733;</div>
+          <div>
+            <div class="included-title">full website build</div>
+            <div class="included-desc">a complete, conversion-optimized website built from scratch with ai agents, automated lead response, smart call-to-action flows, booking integration, and a client dashboard. everything you need to capture, qualify, and close leads on autopilot.</div>
+            <div class="included-premium-tags">
+              <span class="included-premium-tag">custom website</span>
+              <span class="included-premium-tag">ai agents</span>
+              <span class="included-premium-tag">lead response</span>
+              <span class="included-premium-tag">call-to-action flows</span>
+              <span class="included-premium-tag">booking integration</span>
+              <span class="included-premium-tag">client dashboard</span>
+            </div>
+          </div>
+        </div>
+        <div class="included-premium-right">
+          <div class="included-premium-price">$3,500</div>
+          <div class="included-premium-note">one-time build</div>
+          <a href="https://cal.com/cogrowai/freeaudit" class="included-premium-cta">get started</a>
         </div>
       </div>
     </div>
